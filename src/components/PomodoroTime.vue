@@ -73,10 +73,12 @@ export default {
 button{
     color: white;
     background-color:black;
-    font-size: 30px;
+    font-size: 20px;
     padding:10px 20px;
     cursor:pointer;
     margin-top:40px;
     border-radius: 40px;
+    text-transform: uppercase;
+    font-family: Arial, Helvetica, sans-serif;
 }
 </style>
