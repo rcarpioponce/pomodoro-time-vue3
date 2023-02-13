@@ -1,15 +1,40 @@
 import { computed, ref } from 'vue'
 
-const usePomodoro = (minutes = 25) => {
+const usePomodoro = (minutes = 2) => {
+    const initialMinutes = minutes
     const timeMinutes = ref(minutes)
     const seconds = ref(0)
-    const startCountdown = ref(false)
+    const startCountDown = ref(false)
 
+    let intervalSeconds
 
+    const initCountDown = () => {
+        if(startCountDown.value){
+            return
+        }
+        startCountDown.value = true
+        intervalSeconds = setInterval(() => {
+            
+            if(timeMinutes.value === 0 && seconds.value === 0){
+                clearInterval(intervalSeconds)
+                return
+            }
+            if (seconds.value === 0){
+                seconds.value = 60
+                if(timeMinutes.value >= 1){
+                    timeMinutes.value = timeMinutes.value - 1; 
+                }
+                
+            }
+
+            seconds.value = seconds.value - 1
+          
+        }, 1000 );
+    }
 
     return {
         timeMinutes,
-        startCountdown,
+        startCountDown,
         timeFormat: computed(() => {
             let minutesFormat = timeMinutes.value
             let secondsFormat = seconds.value
@@ -22,28 +47,15 @@ const usePomodoro = (minutes = 25) => {
             return `${minutesFormat}:${secondsFormat}`
         }),
         //methods
-        initCountDown: () => {
-            if(startCountdown.value){
-                return
+        initCountDown,
+        reloadCountDown: () => {
+            if(intervalSeconds){
+                clearInterval(intervalSeconds)
             }
-            startCountdown.value = true
-            const intervalSeconds = setInterval(() => {
-                
-                if(timeMinutes.value === 0 && seconds.value === 0){
-                    clearInterval(intervalSeconds)
-                    return
-                }
-                if (seconds.value === 0){
-                    seconds.value = 60
-                    if(timeMinutes.value >= 1){
-                        timeMinutes.value = timeMinutes.value - 1; 
-                    }
-                    
-                }
-
-                seconds.value = seconds.value - 1
-              
-            }, 1000 );
+            startCountDown.value = false
+            timeMinutes.value = initialMinutes
+            seconds.value = 0
+            initCountDown()
         }
     }
 }
