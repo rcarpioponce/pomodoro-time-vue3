@@ -46,6 +46,11 @@ const usePomodoro = (minutes = 2) => {
             }
             return `${minutesFormat}:${secondsFormat}`
         }),
+        timePercent: computed( () => {
+            let secondsTotal = minutes * 60
+            let secondRecorridos = (timeMinutes.value * 60) + seconds.value
+            return (secondsTotal - secondRecorridos) * 100 / secondsTotal
+        }),
         //methods
         initCountDown,
         reloadCountDown: () => {
