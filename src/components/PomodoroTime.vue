@@ -1,7 +1,7 @@
 <template>
   <div class="countdown">
       <div class="time">{{ timeFormat }}</div>
-      <circle-progress :percent="timePercent" />
+      <circle-progress :percent="timePercent" :border-bg-width="5" :size="300" />
   </div>
   <div class="botones">
       <button @click="initCountDown">Iniciar</button>
@@ -66,7 +66,7 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 45px;
+    font-size: 60px;
     font-weight: bold;
     color: #288feb;    
 }
@@ -76,6 +76,7 @@ button{
     font-size: 30px;
     padding:10px 20px;
     cursor:pointer;
-    margin-top:20px;
+    margin-top:40px;
+    border-radius: 40px;
 }
 </style>
