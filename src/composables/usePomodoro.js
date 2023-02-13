@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 
-const usePomodoro = (minutes = 2) => {
+const usePomodoro = (minutes = 25) => {
     const initialMinutes = minutes
     const timeMinutes = ref(minutes)
     const seconds = ref(0)
